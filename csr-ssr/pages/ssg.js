@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
-export async function getClientSideProps() {
+export async function getStaticProps() {
   const getData = async () => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    return 'csr';
+    return 'ssg';
   };
 
   const data = await getData();
@@ -14,15 +14,14 @@ export async function getClientSideProps() {
   };
 }
 
-export default function SSR(props) {
-  console.log('csr props', props);
+export default function SSG(props) {
+  console.log('ssg props', props);
 
   const [state, setState] = useState('data');
 
-  (async () => {
-    props = (await getClientSideProps()).props;
+  useEffect(() => {
     setState(props.data);
-  })();
+  }, [props]);
 
   return (
     <div className={styles.container}>

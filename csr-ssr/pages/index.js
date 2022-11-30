@@ -18,7 +18,7 @@ export default function Home(props) {
         <br />
         <Link href={'/ssr'}>SSR</Link>
         <br />
-        <Link href={'/ssr2'}>SSR2</Link>
+        <Link href={'/ssg'}>SSG</Link>
       </main>
     </div>
   );
