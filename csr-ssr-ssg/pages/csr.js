@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export async function getClientSideProps() {
@@ -19,10 +19,16 @@ export default function SSR(props) {
 
   const [state, setState] = useState('data');
 
-  (async () => {
-    props = (await getClientSideProps()).props;
-    setState(props.data);
-  })();
+  // (async () => {
+  //   props = (await getClientSideProps()).props;
+  //   setState(props.data);
+  // })();
+
+  useEffect(() => {
+    (async () => {
+      setState((await getClientSideProps()).props.data);
+    })();
+  }, [props.data]);
 
   return (
     <div className={styles.container}>
