@@ -4,6 +4,17 @@ import { useState } from 'react';
 
 export default function Home() {
   const [data, setData] = useState(`<p>Hello, World!</p>`);
+
+  const onSaveClick = () => {
+    const result = document.querySelector('div#result');
+    if (result?.innerHTML) {
+      result.innerHTML = '';
+    }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, 'text/html');
+    result?.appendChild(doc.body);
+  };
+
   return (
     <>
       <Head>
@@ -26,8 +37,6 @@ export default function Home() {
         >
           <h1>CKEditor4 Next.js --typescript</h1>
           <br />
-          <br />
-          <br />
           <CKEditor
             config={{
               removeButtons: ['Image', 'Source', 'Anchor'],
@@ -39,6 +48,10 @@ export default function Home() {
             }}
             initData={data}
           />
+          <br />
+          <button onClick={onSaveClick}>Save</button>
+          <br />
+          <div style={{ border: '1px solid red' }} id="result"></div>
         </div>
       </main>
     </>
