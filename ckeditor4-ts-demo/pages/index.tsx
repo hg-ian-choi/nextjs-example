@@ -5,15 +5,15 @@ import { useState } from 'react';
 export default function Home() {
   const [data, setData] = useState(`<p>Hello, World!</p>`);
 
-  const onSaveClick = () => {
-    const result = document.querySelector('div#result');
-    if (result?.innerHTML) {
-      result.innerHTML = '';
-    }
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(data, 'text/html');
-    result?.appendChild(doc.body);
-  };
+  // const onSaveClick = () => {
+  //   const result = document.querySelector('div#result');
+  //   if (result?.innerHTML) {
+  //     result.innerHTML = '';
+  //   }
+  //   const parser = new DOMParser();
+  //   const doc = parser.parseFromString(data, 'text/html');
+  //   result?.appendChild(doc.body);
+  // };
 
   return (
     <>
@@ -43,15 +43,18 @@ export default function Home() {
               removePlugins: ['scayt', 'about', 'elementspath'],
             }}
             onChange={(e) => {
-              console.log('data', e.editor.getData());
               setData(e.editor.getData());
             }}
             initData={data}
           />
           <br />
-          <button onClick={onSaveClick}>Save</button>
+          {/* <button onClick={onSaveClick}>Save</button> */}
           <br />
-          <div style={{ border: '1px solid red' }} id="result"></div>
+          <div
+            style={{ border: '1px solid red' }}
+            id="result"
+            dangerouslySetInnerHTML={{ __html: data }}
+          ></div>
         </div>
       </main>
     </>
